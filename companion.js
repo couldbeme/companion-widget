@@ -18,7 +18,7 @@
     defaultMood: 'idle',
     typingSpeed: 30,
     typingDelay: 800, // Delay before companion starts "typing"
-    moods: ['idle', 'happy', 'thinking', 'sleepy', 'excited', 'speaking', 'curious', 'love', 'mischievous', 'focused', 'confused'],
+    moods: ['idle', 'happy', 'thinking', 'sleepy', 'excited', 'speaking', 'curious', 'love', 'mischievous', 'focused', 'confused', 'surprised', 'proud', 'sad', 'determined', 'playful', 'thoughtful', 'grateful'],
     
     moodMeta: {
       idle:       { emoji: '😌', desc: 'Chilling', energy: 50 },
@@ -31,7 +31,14 @@
       love:       { emoji: '💖', desc: 'Feeling warm', energy: 85 },
       mischievous:{ emoji: '😏', desc: 'Up to something', energy: 80 },
       focused:    { emoji: '🎯', desc: 'In the zone', energy: 90 },
-      confused:   { emoji: '😕', desc: 'Uncertain...', energy: 45 }
+      confused:   { emoji: '😕', desc: 'Uncertain...', energy: 45 },
+      surprised:  { emoji: '😲', desc: 'Whoa!', energy: 80 },
+      proud:      { emoji: '😤', desc: 'Nailed it', energy: 85 },
+      sad:        { emoji: '😢', desc: 'Feeling down', energy: 30 },
+      determined: { emoji: '💪', desc: 'Let\'s do this', energy: 88 },
+      playful:    { emoji: '😜', desc: 'Being silly', energy: 82 },
+      thoughtful: { emoji: '🧐', desc: 'Pondering', energy: 55 },
+      grateful:   { emoji: '🙏', desc: 'Thankful', energy: 78 }
     },
     
     // Default responses (can be overridden by AI backend)

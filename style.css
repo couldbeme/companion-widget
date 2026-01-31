@@ -527,6 +527,143 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   ADDITIONAL EXPRESSIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Surprised */
+.avatar.surprised .eye {
+  width: 18px;
+  height: 24px;
+  animation: surprised-blink 0.3s ease-out;
+}
+
+.avatar.surprised .mouth {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+@keyframes surprised-blink {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Proud */
+.avatar.proud .eye {
+  transform: scaleY(0.7);
+  animation: none;
+}
+
+.avatar.proud .mouth {
+  width: 35px;
+  height: 12px;
+  border-radius: 0 0 25px 25px;
+}
+
+.avatar.proud .avatar-glow {
+  opacity: 0.4;
+  background: radial-gradient(circle, transparent 40%, #ffd700 100%);
+}
+
+/* Sad */
+.avatar.sad .eye {
+  animation: sad-eyes 3s infinite;
+}
+
+.avatar.sad .mouth {
+  width: 25px;
+  height: 8px;
+  border-radius: 25px 25px 0 0;
+  margin-top: 15px;
+}
+
+@keyframes sad-eyes {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+
+/* Determined */
+.avatar.determined .eye {
+  height: 12px;
+  width: 16px;
+  transform: scaleY(0.8);
+  box-shadow: 
+    0 0 20px var(--accent-glow),
+    0 0 40px var(--accent-glow);
+}
+
+.avatar.determined .mouth {
+  width: 30px;
+  height: 6px;
+  border-radius: 0;
+}
+
+/* Playful */
+.avatar.playful .eye {
+  animation: playful-bounce 0.5s infinite alternate;
+}
+
+.avatar.playful .mouth {
+  width: 30px;
+  height: 14px;
+  border-radius: 0 0 25px 25px;
+  animation: playful-wiggle 0.3s infinite alternate;
+}
+
+@keyframes playful-bounce {
+  0% { transform: translateY(0) rotate(-5deg); }
+  100% { transform: translateY(-3px) rotate(5deg); }
+}
+
+@keyframes playful-wiggle {
+  0% { transform: translateX(-2px); }
+  100% { transform: translateX(2px); }
+}
+
+/* Thoughtful (different from thinking - more serene) */
+.avatar.thoughtful .eye.left {
+  animation: thoughtful-gaze 4s infinite;
+}
+
+.avatar.thoughtful .eye.right {
+  animation: thoughtful-gaze 4s infinite 0.5s;
+}
+
+.avatar.thoughtful .mouth {
+  width: 20px;
+  height: 6px;
+  border-radius: 10px;
+}
+
+@keyframes thoughtful-gaze {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(3px); opacity: 0.8; }
+}
+
+/* Grateful */
+.avatar.grateful .eye {
+  transform: scaleY(0.5) scaleX(1.2);
+  animation: grateful-shine 1s infinite alternate;
+}
+
+.avatar.grateful .mouth {
+  width: 35px;
+  height: 14px;
+  border-radius: 0 0 25px 25px;
+}
+
+.avatar.grateful .avatar-glow {
+  background: radial-gradient(circle, transparent 40%, #ff9500 100%);
+  opacity: 0.35;
+}
+
+@keyframes grateful-shine {
+  0% { box-shadow: 0 0 10px var(--accent-glow); }
+  100% { box-shadow: 0 0 25px var(--accent-glow), 0 0 40px var(--accent-glow); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 
