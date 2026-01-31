@@ -691,3 +691,167 @@ body {
     height: 55vh;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   EMOTIONAL STATES - Avatar reacts to YOUR emotions
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Happy - Big smile, bright eyes */
+.avatar.emotion-happy {
+  border-color: #FFD700;
+  box-shadow: 
+    0 0 20px #FFD700,
+    0 0 40px rgba(255, 215, 0, 0.4);
+}
+.avatar.emotion-happy .eye {
+  background: #FFD700;
+  box-shadow: 0 0 15px #FFD700;
+  transform: scaleY(0.7) scaleX(1.2); /* Happy squint */
+}
+.avatar.emotion-happy .mouth {
+  width: 45px;
+  height: 20px;
+  border-radius: 0 0 25px 25px;
+  background: #FFD700;
+}
+
+/* Sad - Droopy eyes, frown */
+.avatar.emotion-sad {
+  border-color: #6495ED;
+  box-shadow: 
+    0 0 20px #6495ED,
+    0 0 40px rgba(100, 149, 237, 0.4);
+}
+.avatar.emotion-sad .eye {
+  background: #6495ED;
+  box-shadow: 0 0 15px #6495ED;
+  transform: scaleY(0.6);
+  border-radius: 50% 50% 30% 30%;
+}
+.avatar.emotion-sad .mouth {
+  width: 30px;
+  height: 8px;
+  border-radius: 20px 20px 0 0; /* Frown */
+  background: #6495ED;
+  transform: translateY(5px);
+}
+
+/* Angry - Sharp eyes, tight mouth */
+.avatar.emotion-angry {
+  border-color: #FF4444;
+  box-shadow: 
+    0 0 20px #FF4444,
+    0 0 40px rgba(255, 68, 68, 0.5);
+  animation: shake 0.3s infinite;
+}
+.avatar.emotion-angry .eye {
+  background: #FF4444;
+  box-shadow: 0 0 15px #FF4444;
+  transform: skewY(-10deg) scaleY(0.7);
+}
+.avatar.emotion-angry .eye.right {
+  transform: skewY(10deg) scaleY(0.7);
+}
+.avatar.emotion-angry .mouth {
+  width: 25px;
+  height: 4px;
+  border-radius: 2px;
+  background: #FF4444;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+/* Surprised - Wide eyes, O mouth */
+.avatar.emotion-surprised {
+  border-color: #FF69B4;
+  box-shadow: 
+    0 0 20px #FF69B4,
+    0 0 40px rgba(255, 105, 180, 0.4);
+}
+.avatar.emotion-surprised .eye {
+  background: #FF69B4;
+  box-shadow: 0 0 15px #FF69B4;
+  width: 18px;
+  height: 24px;
+  transform: scaleY(1.3);
+}
+.avatar.emotion-surprised .mouth {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FF69B4;
+}
+
+/* Fearful - Small eyes, wavy mouth */
+.avatar.emotion-fearful {
+  border-color: #9370DB;
+  box-shadow: 
+    0 0 20px #9370DB,
+    0 0 40px rgba(147, 112, 219, 0.4);
+  animation: tremble 0.2s infinite;
+}
+.avatar.emotion-fearful .eye {
+  background: #9370DB;
+  box-shadow: 0 0 15px #9370DB;
+  width: 10px;
+  height: 14px;
+}
+.avatar.emotion-fearful .mouth {
+  width: 35px;
+  height: 6px;
+  border-radius: 3px;
+  background: #9370DB;
+}
+
+@keyframes tremble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1px); }
+}
+
+/* Disgusted - Squished face */
+.avatar.emotion-disgusted {
+  border-color: #32CD32;
+  box-shadow: 
+    0 0 20px #32CD32,
+    0 0 40px rgba(50, 205, 50, 0.4);
+}
+.avatar.emotion-disgusted .eye {
+  background: #32CD32;
+  box-shadow: 0 0 15px #32CD32;
+  transform: scaleY(0.5) scaleX(1.3);
+}
+.avatar.emotion-disgusted .mouth {
+  width: 30px;
+  height: 8px;
+  border-radius: 0;
+  background: #32CD32;
+  transform: skewX(-10deg);
+}
+
+/* Neutral - Default calm state */
+.avatar.emotion-neutral {
+  border-color: #00FFFF;
+  box-shadow: 
+    0 0 20px #00FFFF,
+    0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+/* Emotion transition */
+.avatar, .avatar .eye, .avatar .mouth {
+  transition: all 0.3s ease-out;
+}
+
+/* Emotion badge pulse */
+.emotion-badge.visible {
+  animation: badge-pop 0.3s ease-out;
+}
+
+@keyframes badge-pop {
+  0% { transform: translateX(-50%) scale(0.8); opacity: 0; }
+  50% { transform: translateX(-50%) scale(1.1); }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
