@@ -2,8 +2,6 @@
 
 **Your AI companion, floating on your desktop.
 
-No subscriptions. No API fees. No corporate avatars. Just you and your AI.
-
 ![Preview](preview.png)
 
 ---
