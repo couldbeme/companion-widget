@@ -121,9 +121,17 @@ Real AI. Real reactions. Real presence.
 
 ---
 
-## 🚀 Coming Soon
+## 🚀 Roadmap
 
-**Speech Emotion Recognition** powered by [Descriptor.AI](https://descriptor.ai)
+### Free & Open Source
+- ✅ Floating companion avatar with mood expressions
+- ✅ Real-time activity reactions
+- ✅ OpenClaw integration
+- 🔜 More expressions & customization options
+- 🔜 Community themes
+
+### Premium — Speech Emotion Recognition
+Powered by [Descriptor.AI](https://descriptor.ai)
 
 Your companion will detect *your* mood from your voice in real-time:
 
