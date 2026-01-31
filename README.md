@@ -193,6 +193,4 @@ companion.setStatus('Working...');
 
 ---
 
-**Free. Private. Open. Yours.**
-
 [OpenClaw](https://github.com/openclaw/openclaw) · [GitHub](https://github.com/couldbeme/companion-widget) · MIT License
