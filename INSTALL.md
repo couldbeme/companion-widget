@@ -1,6 +1,6 @@
 # Quick Install Guide
 
-**Time: 2 minutes. Prerequisites: OpenClaw + macOS app running.**
+**Time: 2 minutes. Prerequisites: OpenClaw macOS app connected to a gateway (local or remote).**
 
 ---
 
@@ -19,26 +19,31 @@ Done. Your companion is floating on your desktop.
 
 ## Step-by-Step
 
-### 1. Make sure OpenClaw is running
+### 1. Make sure OpenClaw is connected
 
+**Local gateway:**
 ```bash
-# Check gateway status
 openclaw gateway status
-
-# If not running:
-openclaw gateway
+# If not running: openclaw gateway
 ```
+
+**Remote gateway (Tailscale/SSH/VPS):**
+Your gateway runs on a server. The macOS app connects to it remotely.
+See [OpenClaw remote setup](https://docs.openclaw.ai/gateway/remote).
 
 ### 2. Make sure macOS app is connected
 
 Open **OpenClaw.app** from Applications. You should see the lobster 🦞 in your menu bar.
+
+- **Local mode:** App connects to gateway on your Mac
+- **Remote mode:** App connects to gateway on your server (via Tailscale/SSH)
 
 Check nodes:
 ```bash
 openclaw nodes list
 ```
 
-You should see your Mac listed as a node.
+You should see your Mac listed as a node (works in both local and remote mode).
 
 ### 3. Install the companion widget
 

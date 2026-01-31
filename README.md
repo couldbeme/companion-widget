@@ -15,9 +15,9 @@ There are plenty of AI avatar services out there. They charge monthly. They requ
 **This is different.**
 
 - ✅ **Free** — No subscription, no API costs, no catch
-- ✅ **Private** — Runs locally, your data stays yours
+- ✅ **Private** — Your data stays yours (OpenClaw runs local or on your own server)
 - ✅ **Open** — Fully open source, customize everything
-- ✅ **Real** — Connected to your actual AI (via OpenClaw), not a gimmick
+- ✅ **Real** — Connected to your actual AI via [OpenClaw](https://github.com/openclaw/openclaw), not a gimmick
 
 Your AI companion deserves a face. You shouldn't have to pay rent for it.
 
@@ -36,7 +36,7 @@ git clone https://github.com/couldbeme/companion-widget.git \
 
 **Done.** Your companion floats on your desktop.
 
-Talk to your AI via Telegram, Discord, terminal — watch it react in real-time.
+Works with OpenClaw running **locally or remotely** (via Tailscale, SSH tunnel, or VPS). Your Mac just needs the OpenClaw app connected to your gateway.
 
 📖 [Detailed install guide](INSTALL.md) | 🔧 [Troubleshooting](INSTALL.md#troubleshooting)
 
