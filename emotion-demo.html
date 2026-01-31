@@ -163,13 +163,14 @@
     </div>
     
     <div class="credit">
-      Built with 💙 — <a href="https://github.com/couldbeme/riley-desktop">Open Source</a>
+      Emotion AI by <a href="https://descriptor.ai">Descriptor.AI</a>
     </div>
   </div>
 
   <script>
     const API = 'http://localhost:8080';
     const API_KEY = 'test-key-dev-only';
+    const DEMO_LIMIT_MS = 3 * 60 * 1000; // 3 minutes
     
     const avatar = document.getElementById('avatar');
     const micBtn = document.getElementById('mic-btn');
@@ -191,6 +192,39 @@
     
     let mediaRecorder;
     let audioChunks = [];
+    let demoStartTime = localStorage.getItem('ser_demo_start');
+    let demoExpired = localStorage.getItem('ser_demo_expired') === 'true';
+    
+    function showDemoExpired() {
+      demoExpired = true;
+      localStorage.setItem('ser_demo_expired', 'true');
+      micBtn.disabled = true;
+      micBtn.style.opacity = '0.5';
+      micBtn.textContent = '⏱️';
+      status.textContent = 'Demo complete';
+      transcript.innerHTML = `
+        <div style="text-align: center;">
+          <div style="font-size: 24px; margin-bottom: 15px;">✨ Enjoyed the demo?</div>
+          <div style="color: #00ffff; margin-bottom: 20px;">Get unlimited access to real-time emotion AI</div>
+          <a href="https://descriptor.ai" target="_blank" style="
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #00ffff, #00ff88);
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+          ">Join the Waitlist →</a>
+        </div>
+      `;
+    }
+    
+    // Check on load
+    if (demoStartTime && Date.now() - parseInt(demoStartTime) > DEMO_LIMIT_MS) {
+      demoExpired = true;
+      localStorage.setItem('ser_demo_expired', 'true');
+    }
+    if (demoExpired) showDemoExpired();
     
     function setEmotion(emotion) {
       // Remove all emotion classes
@@ -211,6 +245,24 @@
     
     micBtn.onmousedown = micBtn.ontouchstart = async (e) => {
       e.preventDefault();
+      
+      if (demoExpired) {
+        showDemoExpired();
+        return;
+      }
+      
+      // Start timer on first use
+      if (!demoStartTime) {
+        demoStartTime = Date.now();
+        localStorage.setItem('ser_demo_start', demoStartTime.toString());
+      }
+      
+      // Check if expired
+      if (Date.now() - parseInt(demoStartTime) > DEMO_LIMIT_MS) {
+        showDemoExpired();
+        return;
+      }
+      
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         micBtn.classList.add('recording');

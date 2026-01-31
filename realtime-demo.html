@@ -203,13 +203,14 @@
     </div>
     
     <div class="credit">
-      Real-time ASR + Emotion Detection — <a href="https://github.com/couldbeme/companion-widget">Open Source</a>
+      Real-time Emotion AI — <a href="https://descriptor.ai">Descriptor.AI</a>
     </div>
   </div>
 
   <script>
     const API = 'http://localhost:8080';
     const API_KEY = 'test-key-dev-only';
+    const DEMO_LIMIT_MS = 3 * 60 * 1000; // 3 minutes
     
     const avatar = document.getElementById('avatar');
     const startBtn = document.getElementById('start-btn');
@@ -228,6 +229,8 @@
     let isListening = false;
     let audioContext, analyser, microphone, processor;
     let fullTranscript = '';
+    let demoStartTime = null;
+    let demoExpired = localStorage.getItem('ser_demo_expired') === 'true';
     
     function setEmotion(emotion, confidence) {
       avatar.className = 'avatar';
@@ -240,7 +243,37 @@
       emotionDisplay.classList.add('visible');
     }
     
+    function showDemoExpired() {
+      demoExpired = true;
+      localStorage.setItem('ser_demo_expired', 'true');
+      stopListening();
+      startBtn.disabled = true;
+      startBtn.textContent = '⏱️ Demo Complete';
+      startBtn.style.opacity = '0.5';
+      transcript.innerHTML = `
+        <div style="text-align: center;">
+          <div style="font-size: 28px; margin-bottom: 15px;">✨ Enjoyed the demo?</div>
+          <div style="color: #00ffff; margin-bottom: 20px;">Get unlimited access to real-time emotion AI</div>
+          <a href="https://descriptor.ai" target="_blank" style="
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00ffff, #00ff88);
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 20px;
+          ">Join the Waitlist →</a>
+        </div>
+      `;
+    }
+    
     async function startListening() {
+      if (demoExpired) {
+        showDemoExpired();
+        return;
+      }
+      
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
           audio: { sampleRate: 16000, channelCount: 1 } 
@@ -255,12 +288,27 @@
         microphone.connect(processor);
         processor.connect(audioContext.destination);
         
+        // Start demo timer
+        if (!demoStartTime) {
+          demoStartTime = Date.now();
+          localStorage.setItem('ser_demo_start', demoStartTime.toString());
+        } else {
+          const saved = localStorage.getItem('ser_demo_start');
+          if (saved) demoStartTime = parseInt(saved);
+        }
+        
         let audioBuffer = [];
         const CHUNK_DURATION = 2; // seconds
         const SAMPLES_PER_CHUNK = 16000 * CHUNK_DURATION;
         
         processor.onaudioprocess = (e) => {
           if (!isListening) return;
+          
+          // Check demo time limit
+          if (Date.now() - demoStartTime > DEMO_LIMIT_MS) {
+            showDemoExpired();
+            return;
+          }
           
           const inputData = e.inputBuffer.getChannelData(0);
           audioBuffer.push(...inputData);
@@ -324,7 +372,22 @@
       }
     }
     
+    // Check if demo already expired on load
+    const savedStart = localStorage.getItem('ser_demo_start');
+    if (savedStart && Date.now() - parseInt(savedStart) > DEMO_LIMIT_MS) {
+      demoExpired = true;
+      localStorage.setItem('ser_demo_expired', 'true');
+    }
+    
+    if (demoExpired) {
+      showDemoExpired();
+    }
+    
     startBtn.onclick = () => {
+      if (demoExpired) {
+        showDemoExpired();
+        return;
+      }
       if (isListening) {
         stopListening();
       } else {
