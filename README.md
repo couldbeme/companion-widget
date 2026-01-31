@@ -1,15 +1,65 @@
 # 🎮 Companion Widget
 
-A retro-inspired interface framework for AI companion visualization. Designed with 90s desktop aesthetics—Windows 98 chrome, Tamagotchi expressiveness, PS1-era pixel art—to give AI systems a visual presence that's both functional and memorable.
+**Give your AI a face.**
+
+Your AI assistant is smart. It can think, create, remember. But it's invisible — just text in a box.
+
+That changes now.
 
 ![Preview](preview.png)
 
+Companion Widget gives AI companions a visual presence: an animated avatar that shows what it's feeling. Happy when it helps. Focused when it's working. Confused when it's stuck. Just like the Tamagotchis and desktop pets of the 90s — but for the AI age.
+
+---
+
+## ✨ What You Get
+
+- **A face for your AI** — Expressive avatar with 10+ mood states
+- **Real emotional feedback** — See when it's thinking, excited, or confused
+- **90s nostalgia** — Windows 98 aesthetic, pixel vibes, CRT scanlines
+- **Works anywhere** — Just open the HTML file. No install. No setup. No cloud.
+
+---
+
+## 🚀 It's Standalone
+
+**This is a complete app.** Download it, open it, done.
+
+No npm. No build tools. No frameworks. No accounts. No internet required.
+
+Just 3 files (~50KB total):
+- `index.html`
+- `style.css`  
+- `companion.js`
+
+Double-click `index.html` → your companion appears.
+
+Want to integrate it with your AI system? Great — there's a full API. But you don't *have* to. It works out of the box.
+
+---
+
+## 🔌 Integrates with AI Systems
+
+While Companion Widget works standalone, it's designed to connect with AI backends:
+
+- **OpenClaw** — First-class canvas integration (see below)
+- **Any AI** — Simple JavaScript API and postMessage interface
+- **Custom systems** — Just call `companion.setMood('thinking')` when your AI is thinking
+
+---
+
+## For Developers
+
+Everything below is for technical integration. If you just want to use the widget, you're already done — just open the HTML file.
+
+---
+
 ## Overview
 
-Modern AI interfaces are text-centric. Companion Widget provides a visual layer: an animated avatar with mood states, status indicators, and real-time messaging—all rendered in a nostalgic aesthetic that users find approachable and engaging.
+Companion Widget provides a visual interface layer for AI systems. It renders an animated avatar with mood states, status indicators, and real-time messaging in a retro 90s aesthetic.
 
-**Key capabilities:**
-- Expressive avatar with 10+ mood states and smooth animations
+**Technical capabilities:**
+- Expressive avatar with 10+ mood states and CSS-only animations
 - Real-time status display with uptime, energy levels, and custom messages
 - Message bubbles with typing animations
 - Full JavaScript API for programmatic control
