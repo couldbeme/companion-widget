@@ -3,46 +3,595 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Companion</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Descriptor.AI — Your Best Salesperson. Cloned.</title>
+  <meta name="description" content="Capture what makes your top performers close deals. Train your entire team with AI that learns from the best.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --text-primary: #e0e0e0;
+      --text-muted: #808080;
+      --accent: #00ffff;
+      --accent-secondary: #a855f7;
+      --success: #00ff88;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Gradient background */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at top left, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+        var(--bg-dark);
+      z-index: -1;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Navigation */
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    .nav-cta {
+      padding: 10px 20px;
+      background: var(--accent);
+      color: var(--bg-dark);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    h1 {
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      color: var(--bg-dark);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+    }
+    
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    /* Features */
+    .features {
+      padding: 80px 0;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      border-color: rgba(0, 255, 255, 0.3);
+      transform: translateY(-4px);
+    }
+    
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(168, 85, 247, 0.2));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    
+    /* How it works */
+    .how-it-works {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+    
+    .step {
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      color: var(--bg-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+    
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    .step p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    /* Pricing */
+    .pricing {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+    }
+    
+    .price-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(168, 85, 247, 0.05));
+    }
+    
+    .price-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      color: var(--bg-dark);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    
+    .price-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .price-amount {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    
+    .price-amount span {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    
+    .price-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    
+    .price-features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+    
+    .price-features li {
+      padding: 8px 0;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .price-features li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: bold;
+    }
+    
+    /* Security */
+    .security {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+    
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .security-badge::before {
+      content: '🔒';
+    }
+    
+    /* CTA */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    
+    .cta h2 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .cta p {
+      color: var(--text-muted);
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 80px 0 60px; }
+      h1 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Floating Companion Avatar -->
-  <div class="floating-companion" id="companion">
-    <div class="avatar" id="avatar">
-      <div class="avatar-face">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="mouth"></div>
+  <div class="bg-gradient"></div>
+  
+  <nav>
+    <div class="container nav-content">
+      <div class="logo">Descriptor.AI</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="https://mvp.descriptor.ai">Platform</a></li>
+        <li><a href="realtime-demo.html">Live Demo</a></li>
+      </ul>
+      <a href="https://mvp.descriptor.ai/auth" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="container">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Now with real-time emotion detection
       </div>
-      <div class="avatar-glow"></div>
+      <h1>Your Best Salesperson.<br>Cloned.</h1>
+      <p>Capture what makes your top performers close deals. Train your entire team with AI that learns from the best.</p>
+      <div class="hero-ctas">
+        <a href="https://mvp.descriptor.ai/auth" class="btn btn-primary">Start Free Trial →</a>
+        <a href="realtime-demo.html" class="btn btn-secondary">Try Live Demo</a>
+      </div>
     </div>
-    <div class="status-led" id="status-led"></div>
-    <div class="companion-name" id="companion-name">Riley ⚡</div>
-  </div>
-
-  <!-- Chat Interface -->
-  <div class="chat-container">
-    <div class="chat-header">
-      <span class="chat-title">Chat</span>
-      <span class="status-text" id="status-text">Online</span>
+  </section>
+  
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎭</div>
+          <h3>Real-Time Emotion Detection</h3>
+          <p>Know how your prospect feels as they speak. Detect frustration, excitement, doubt — and adjust your pitch instantly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👤</div>
+          <h3>Digital Twin Training</h3>
+          <p>Upload calls from your top performers. Our AI learns their patterns, objection handling, and closing techniques.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Live Copilot Suggestions</h3>
+          <p>Get real-time suggestions based on prospect emotion. Trained on YOUR team's winning patterns.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3>Performance Analytics</h3>
+          <p>See which emotions correlate with closed deals. Track improvement. Identify coaching opportunities.</p>
+        </div>
+      </div>
     </div>
-    
-    <div class="chat-messages" id="chat-messages">
-      <!-- Messages will be inserted here -->
+  </section>
+  
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p>From upload to insight in minutes</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Upload Calls</h3>
+          <p>Upload recordings from your best performers</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>AI Learns</h3>
+          <p>We analyze patterns, emotions, and techniques</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Create Digital Twin</h3>
+          <p>Build an AI coach based on your top talent</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Coach in Real-Time</h3>
+          <p>Get live suggestions during calls</p>
+        </div>
+      </div>
     </div>
-    
-    <div class="chat-input-area">
-      <input 
-        type="text" 
-        id="chat-input" 
-        placeholder="Type a message..."
-        autocomplete="off"
-      >
-      <button id="send-btn">Send</button>
+  </section>
+  
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Simple Pricing</h2>
+        <p>Start free, scale as you grow</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-name">Demo</div>
+          <div class="price-amount">$0</div>
+          <div class="price-desc">Try it out</div>
+          <ul class="price-features">
+            <li>3 minutes emotion detection</li>
+            <li>See how it works</li>
+            <li>No signup required</li>
+          </ul>
+          <a href="realtime-demo.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Try Demo</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-name">Early Access</div>
+          <div class="price-amount">$49<span>/mo</span></div>
+          <div class="price-desc">For sales teams</div>
+          <ul class="price-features">
+            <li>Unlimited emotion detection</li>
+            <li>500 copilot minutes/month</li>
+            <li>1 digital twin</li>
+            <li>Full analytics</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="https://mvp.descriptor.ai/auth" class="btn btn-primary" style="width: 100%; text-align: center;">Start Free Trial</a>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <script src="companion.js"></script>
+  </section>
+  
+  <section class="security">
+    <div class="container">
+      <div class="security-badges">
+        <div class="security-badge">256-bit encryption</div>
+        <div class="security-badge">GDPR compliant</div>
+        <div class="security-badge">Data isolation</div>
+        <div class="security-badge">You own your data</div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to clone your best?</h2>
+      <p>Join sales teams already using AI to close more deals.</p>
+      <a href="https://mvp.descriptor.ai/auth" class="btn btn-primary">Start Free Trial →</a>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <p>Built by <a href="https://descriptor.ai">Descriptor.AI</a> · Powered by real-time emotion AI</p>
+      <p style="margin-top: 8px;">
+        <a href="https://github.com/couldbeme/companion-widget">GitHub</a> · 
+        <a href="https://github.com/openclaw/openclaw">OpenClaw</a>
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
