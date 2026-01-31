@@ -188,6 +188,18 @@ This is meant to be forked, customized, and made your own! Some ideas:
 - [ ] Weather integration
 - [ ] Music visualizer mode
 
+## 🎤 Coming Soon: Speech Emotion Recognition
+
+**Waitlist open.**
+
+The next evolution: your companion doesn't just *show* emotions — it *detects* yours.
+
+Real-time voice analysis. Your tone, energy, emotional state → companion reacts accordingly.
+
+Interested? [Join the waitlist →](https://github.com/couldbeme/companion-widget/issues/1)
+
+---
+
 ## 💡 Why This Exists
 
 AI companions deserve better than text boxes. The 90s taught us that digital pets could have personality — now we have AI that actually does. This widget bridges that gap.
