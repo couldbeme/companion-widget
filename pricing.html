@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descriptor.AI — Pricing</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .logo {
+      font-family: 'VT323', monospace;
+      font-size: 32px;
+      color: #00ffff;
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+      margin-bottom: 15px;
+    }
+    
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #fff, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .subtitle {
+      font-size: 20px;
+      color: #808080;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
+    }
+    
+    .plan {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+      transition: all 0.3s;
+    }
+    
+    .plan:hover {
+      border-color: rgba(0, 255, 255, 0.3);
+      transform: translateY(-5px);
+    }
+    
+    .plan.featured {
+      border-color: #00ffff;
+      background: rgba(0, 255, 255, 0.05);
+    }
+    
+    .plan.featured::before {
+      content: '🔥 MOST POPULAR';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #0a0a0f;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+    
+    .plan-name {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .plan-price {
+      font-size: 48px;
+      font-weight: 700;
+      color: #00ffff;
+      margin-bottom: 5px;
+    }
+    
+    .plan-price span {
+      font-size: 18px;
+      color: #606060;
+      font-weight: 400;
+    }
+    
+    .plan-desc {
+      color: #808080;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+    
+    .features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    
+    .features li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .features li::before {
+      content: '✓';
+      color: #00ff88;
+      font-weight: bold;
+    }
+    
+    .cta-button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .cta-primary {
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #0a0a0f;
+    }
+    
+    .cta-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+    }
+    
+    .cta-secondary {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: #e0e0e0;
+    }
+    
+    .cta-secondary:hover {
+      border-color: #00ffff;
+      color: #00ffff;
+    }
+    
+    .features-section {
+      margin-top: 80px;
+      text-align: center;
+    }
+    
+    .features-section h2 {
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: left;
+    }
+    
+    .feature-card {
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 15px;
+    }
+    
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #00ffff;
+    }
+    
+    .feature-card p {
+      color: #808080;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #606060;
+    }
+    
+    .footer a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡ Descriptor.AI</div>
+      <h1>Real-Time Emotion AI</h1>
+      <p class="subtitle">Speech emotion recognition that understands how your users feel. Build empathetic AI experiences.</p>
+    </div>
+    
+    <div class="pricing-grid">
+      <!-- Free Tier -->
+      <div class="plan">
+        <div class="plan-name">Demo</div>
+        <div class="plan-price">Free</div>
+        <div class="plan-desc">Try it out</div>
+        <ul class="features">
+          <li>3 minutes of emotion detection</li>
+          <li>7 emotion categories</li>
+          <li>Web demo access</li>
+          <li>No signup required</li>
+        </ul>
+        <a href="realtime-demo.html" class="cta-button cta-secondary">Try Demo</a>
+      </div>
+      
+      <!-- Early Access -->
+      <div class="plan featured">
+        <div class="plan-name">Early Access</div>
+        <div class="plan-price">$49<span>/mo</span></div>
+        <div class="plan-desc">For builders & developers</div>
+        <ul class="features">
+          <li>Unlimited API calls</li>
+          <li>Real-time streaming</li>
+          <li>Audio + text analysis</li>
+          <li>Personality insights</li>
+          <li>Priority support</li>
+          <li>Lock in founding price forever</li>
+        </ul>
+        <!-- REPLACE THIS LINK WITH YOUR STRIPE PAYMENT LINK -->
+        <a href="https://buy.stripe.com/YOUR_PAYMENT_LINK" class="cta-button cta-primary" id="checkout-btn">Get Early Access →</a>
+      </div>
+      
+      <!-- Enterprise -->
+      <div class="plan">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-desc">For call centers & teams</div>
+        <ul class="features">
+          <li>Everything in Early Access</li>
+          <li>Volume pricing</li>
+          <li>Custom integrations</li>
+          <li>SLA guarantee</li>
+          <li>On-premise option</li>
+          <li>Dedicated support</li>
+        </ul>
+        <a href="mailto:hello@descriptor.ai" class="cta-button cta-secondary">Contact Sales</a>
+      </div>
+    </div>
+    
+    <div class="features-section">
+      <h2>What You Get</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>🎯 7 Core Emotions</h3>
+          <p>Happy, sad, angry, surprised, fearful, disgusted, neutral — detected in real-time from voice.</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Real-Time Streaming</h3>
+          <p>WebSocket API for live emotion detection. Under 200ms latency.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🧠 Personality Insights</h3>
+          <p>Communication style analysis, behavioral indicators, and actionable insights.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔌 Easy Integration</h3>
+          <p>REST API, WebSocket, and SDKs. Works with any language or framework.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Built by <a href="https://descriptor.ai">Descriptor.AI</a> · Powered by advanced speech emotion recognition</p>
+      <p style="margin-top: 10px;"><a href="https://github.com/couldbeme/companion-widget">GitHub</a> · <a href="https://github.com/openclaw/openclaw">OpenClaw</a></p>
+    </div>
+  </div>
+</body>
+</html>
