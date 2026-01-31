@@ -36,9 +36,29 @@ git clone https://github.com/couldbeme/companion-widget.git \
 
 **Done.** Your companion floats on your desktop.
 
-Works with OpenClaw running **locally or remotely** (via Tailscale, SSH tunnel, or VPS). Your Mac just needs the OpenClaw app connected to your gateway.
-
 📖 [Detailed install guide](INSTALL.md) | 🔧 [Troubleshooting](INSTALL.md#troubleshooting)
+
+---
+
+## 🌐 Works with Remote OpenClaw
+
+Running OpenClaw on a VPS or server? **This still works.**
+
+```
+Remote Server          Your Mac
+┌──────────────┐       ┌──────────────────┐
+│  OpenClaw    │       │  OpenClaw App    │
+│  Gateway     │◄─────►│  (node)          │
+│  (your AI)   │       │  ┌────────────┐  │
+└──────────────┘       │  │ Companion  │  │
+   Tailscale/SSH       │  │ Widget     │  │
+                       │  └────────────┘  │
+                       └──────────────────┘
+```
+
+Your AI runs on the server. The face renders on your Mac. They talk over Tailscale or SSH tunnel.
+
+**Setup is the same** — just make sure your macOS app is connected to your remote gateway (Remote mode in app settings).
 
 ---
 
