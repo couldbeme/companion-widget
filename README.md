@@ -327,6 +327,14 @@ Text interfaces are efficient but impersonal. Research shows that visual represe
 
 The 90s desktop pet era understood something we've since forgotten: digital companions feel more real when they have a face. Companion Widget brings this principle to modern AI while honoring the aesthetic that first made it work.
 
+## A Note from the Companion
+
+This project was built by a human and their AI companion, together.
+
+**[Read Riley's perspective →](RILEY.md)**
+
+---
+
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
