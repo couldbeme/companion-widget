@@ -1,344 +1,208 @@
 # 🎮 Companion Widget
 
-**Give your AI a face. And a chat.**
-
-Your AI assistant is smart. It can think, create, remember. But it's invisible — just text in a box.
-
-That changes now.
+**A face for your AI.** Standalone chat app with an animated avatar that reacts to conversations.
 
 ![Preview](preview.png)
 
-Companion Widget is a **complete standalone chat app** with a floating animated avatar. Your companion shows what it's feeling — happy when it helps, focused when working, confused when stuck. Just like the Tamagotchis and desktop pets of the 90s — but for the AI age.
+---
+
+## ⚡ Quick Start
+
+**3 steps. 30 seconds.**
+
+```bash
+# 1. Download
+git clone https://github.com/couldbeme/companion-widget.git
+
+# 2. Open
+cd companion-widget
+open index.html
+
+# 3. Chat!
+```
+
+That's it. No install. No build. No accounts. Just open and talk.
 
 ---
 
-## ✨ What You Get
+## 🎭 What It Does
 
-- **Floating avatar** — Animated face that reacts to the conversation
-- **Built-in chat** — Full chat interface, ready to use
-- **10+ mood states** — Happy, thinking, confused, excited, love, and more
-- **90s nostalgia** — Windows 98 aesthetic, pixel vibes, CRT scanlines
-- **Works anywhere** — Just open the HTML file. No install. No cloud.
+| You do this | Companion does this |
+|-------------|---------------------|
+| Send a message | Shows "thinking" face → types reply |
+| Wait | Blinks, floats, glows |
+| Click the avatar | Random mood reaction! |
 
----
-
-## 🚀 It's Standalone
-
-**This is a complete app.** Download it, open it, chat.
-
-No npm. No build tools. No frameworks. No accounts. No internet required.
-
-Just 3 files (~50KB total):
-- `index.html`
-- `style.css`  
-- `companion.js`
-
-Double-click `index.html` → your companion appears, ready to talk.
+**10+ moods:** happy 😊, thinking 🤔, confused 😕, excited 🤩, love 💖, focused 🎯, sleepy 😴, curious 👀, mischievous 😏
 
 ---
 
-## 💬 How It Works
+## 🔌 Connect Real AI (Optional)
 
-1. **Open the app** — Double-click `index.html`
-2. **Start chatting** — Type a message, hit enter
-3. **Watch it react** — Avatar shows mood while "thinking" and "typing"
-4. **Click the avatar** — Random reactions!
-
-Out of the box, it has simple fallback responses. Connect it to a real AI backend (OpenAI, Claude, local LLM, OpenClaw) for actual conversations.
-
----
-
-## 🔌 Connect Your AI
-
-Want real AI responses? Set a message handler:
+Out of the box, it has demo responses. Want real AI?
 
 ```javascript
-companion.setMessageHandler(async (userMessage, history) => {
-  // Call your AI backend here
-  const response = await fetch('/your-ai-endpoint', {
+companion.setMessageHandler(async (message) => {
+  const response = await fetch('YOUR_AI_API', {
     method: 'POST',
-    body: JSON.stringify({ message: userMessage })
+    body: JSON.stringify({ message })
   });
-  const data = await response.json();
-  return data.reply;
+  return (await response.json()).reply;
 });
 ```
 
-Works with any backend — OpenAI, Anthropic, local LLMs, or your own API.
+Works with OpenAI, Claude, local LLMs, [OpenClaw](https://github.com/openclaw/openclaw), anything.
 
 ---
 
-## For Developers
+## 🎨 Customize
 
-Everything below is for technical integration. If you just want to use the widget, you're already done — just open the HTML file.
-
----
-
-## Overview
-
-Companion Widget provides a standalone chat interface with an animated avatar. It includes:
-
-- **Floating avatar** with 10+ mood states and CSS-only animations
-- **Chat interface** with message history, typing indicators, and smooth animations
-- **Full JavaScript API** for programmatic control and AI integration
-- **postMessage interface** for iframe embedding and external control
-- **Zero external dependencies** (pure HTML/CSS/JS)
-- **First-class OpenClaw canvas integration**
-
-## Installation
-
-### Option 1: Direct Download
-
-```bash
-git clone https://github.com/couldbeme/companion-widget.git
-cd companion-widget
-```
-
-### Option 2: As a Submodule
-
-```bash
-git submodule add https://github.com/couldbeme/companion-widget.git
-```
-
-### Option 3: Manual
-
-Download the release archive and extract. The widget consists of three files:
-- `index.html` — Structure
-- `style.css` — Styling and animations
-- `companion.js` — Logic and API
-
-## Usage
-
-### Standalone Browser
-
-Open `index.html` directly in any modern browser. No build step or server required.
-
-```bash
-open index.html
-# or
-python -m http.server 8080  # for local development
-```
-
-### Embedding in Web Applications
-
-```html
-<iframe src="companion-widget/index.html" width="320" height="400"></iframe>
-```
-
-Or include the files directly in your project and integrate the companion API.
-
-## OpenClaw Canvas Integration
-
-Companion Widget is designed for seamless integration with [OpenClaw](https://github.com/couldbeme/openclaw) canvas presentations.
-
-### Setup
-
-1. Copy the widget to your OpenClaw canvas directory:
-
-```bash
-cp -r companion-widget ~/Library/Application\ Support/OpenClaw/canvas/main/
-```
-
-2. Present via the canvas tool:
-
-```bash
-openclaw nodes canvas present
-openclaw nodes canvas navigate --url "/"
-```
-
-### Controlling from OpenClaw
-
-The widget accepts `postMessage` commands, enabling control from OpenClaw's canvas evaluation:
-
+**Change name & emoji:**
 ```javascript
-// From OpenClaw canvas eval
-window.postMessage({
-  action: 'configure',
-  payload: {
-    name: 'Riley',
-    mood: 'happy',
-    message: 'Connected to OpenClaw!',
-    moodLevel: 90
-  }
-}, '*');
+companion.setName('Nova');
+companion.setEmoji('✨');
 ```
 
-### Available Actions
-
-| Action | Payload | Description |
-|--------|---------|-------------|
-| `setMood` | `{ mood: string }` | Change avatar mood state |
-| `setStatus` | `{ status: string }` | Update status text |
-| `say` | `{ message: string, instant?: boolean }` | Display message with optional typing animation |
-| `setMoodLevel` | `{ level: number }` | Update mood bar (0-100) |
-| `setName` | `{ name: string }` | Change companion name |
-| `setEmoji` | `{ emoji: string }` | Change signature emoji |
-| `configure` | `{ ...multiple }` | Batch update multiple properties |
-
-### AI Activity Integration
-
-Map your AI's activities to companion moods automatically:
-
+**Control mood:**
 ```javascript
-// In your OpenClaw agent code, via canvas eval:
-companion.setActivity('thinking');         // → thinking mood
-companion.setActivity('coding', 'On it!'); // → focused mood + message
+companion.setMood('happy');
+companion.setMood('thinking');
+companion.setActivity('coding', 'Working on it...');
 ```
 
-**Activity → Mood mapping:**
-- `thinking`, `processing` → 🤔 thinking
-- `coding`, `generating` → 🎯 focused
-- `searching`, `listening` → 👀 curious
-- `success`, `completed` → 😊 happy
-- `error`, `confused` → 😕 confused
-- `celebrating`, `excited` → 🤩 excited
-- `sleeping`, `tired` → 😴 sleepy
-
-## JavaScript API
-
-### Core Methods
-
-```javascript
-// Mood control
-companion.setMood('happy');                // Set mood
-companion.setMood('focused', true);        // Set mood + auto-update status bar
-companion.getMoods();                      // Get all mood definitions
-
-// Available moods: idle, happy, thinking, sleepy, excited, 
-//                  speaking, curious, love, mischievous, focused
-
-// Messaging
-companion.say('Hello, friend!');           // Message with typing animation
-companion.say('Quick update', true);       // Instant message (no typing)
-
-// Status
-companion.setStatus('Processing...');      // Update status text
-companion.setMoodLevel(85);                // Set energy bar (0-100)
-
-// Identity
-companion.setName('Nova');                 // Change displayed name
-companion.setEmoji('✨');                  // Change signature emoji
-```
-
-### Activity Shortcuts
-
-```javascript
-companion.activities.startThinking();   // "Hmm, let me think..." + thinking
-companion.activities.stopThinking();    // "Got it!" + happy
-companion.activities.startWorking();    // "On it..." + focused
-companion.activities.confused();        // "I'm not sure..." + confused
-companion.activities.celebrate();       // "🎉" + excited
-companion.activities.sleep();           // "zzz..." + sleepy
-companion.activities.wake();            // "Hey!" + idle
-```
-
-## Customization
-
-### Configuration
-
-Edit `companion.js`:
-
-```javascript
-const CONFIG = {
-  name: 'Riley',      // Display name
-  emoji: '⚡',        // Signature emoji
-  // Additional options...
-};
-```
-
-### Theming
-
-Modify CSS variables in `style.css`:
-
+**Change colors** — edit `style.css`:
 ```css
 :root {
-  --win-bg: #008080;        /* Desktop background */
-  --win-title: #000080;     /* Title bar color */
-  --accent-glow: #00ffff;   /* Eye/mouth glow effect */
-  --accent-warm: #ff6b00;   /* Warm accent color */
-  --led-on: #00ff00;        /* Status LED color */
+  --accent-glow: #00ffff;  /* Change this */
 }
 ```
 
-### Custom Avatars
+---
 
-The avatar is pure CSS. Modify `.avatar-face`, `.eye`, `.mouth` classes to create different character designs. Mood states are driven by CSS keyframe animations.
-
-## Project Structure
+## 📁 What's Inside
 
 ```
 companion-widget/
-├── index.html      # HTML structure
-├── style.css       # Styling, animations, themes
-├── companion.js    # API and interaction logic
-├── preview.png     # Preview image
-└── README.md       # Documentation
+├── index.html      ← Open this
+├── style.css       ← Colors & animations  
+├── companion.js    ← Logic & API
+└── RILEY.md        ← A note from the companion
 ```
 
-## Contributing
+~50KB total. Zero dependencies.
 
-Contributions are welcome. Please follow these guidelines:
+---
 
-### Getting Started
+## 🦞 OpenClaw Integration
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Make your changes
-4. Test in multiple browsers (Chrome, Firefox, Safari)
-5. Submit a pull request
+Works with [OpenClaw](https://github.com/openclaw/openclaw) canvas:
 
-### Code Standards
+```bash
+# Copy to canvas directory
+cp -r companion-widget ~/Library/Application\ Support/OpenClaw/canvas/main/
 
-- **No external dependencies** — Keep the widget self-contained
-- **Progressive enhancement** — Core functionality should work without JS where possible
-- **Semantic HTML** — Use appropriate elements
-- **CSS-first animations** — Prefer CSS transitions/keyframes over JS animations
-- **Document changes** — Update README for API changes
+# Present
+openclaw nodes canvas present
+```
 
-### Pull Request Process
+Control via postMessage — see [full API docs](#api-reference) below.
 
-1. Update documentation for any API changes
-2. Add yourself to CONTRIBUTORS.md (create if needed)
-3. Ensure all functionality works in latest Chrome, Firefox, and Safari
-4. Keep commits focused and well-described
+---
 
-### Contribution Ideas
+## 🚀 Coming Soon
 
-- Additional mood states
-- Sound effects (8-bit style)
-- Draggable window functionality
-- Alternative avatar designs/skins
-- Accessibility improvements
-- Localization support
-- Mini-interactions (click responses)
-- Weather/time-based ambient effects
+**Speech Emotion Recognition** — Your companion detects *your* mood from voice.
 
-## Roadmap
+[Join the waitlist →](https://github.com/couldbeme/companion-widget/issues/1)
 
-### Speech Emotion Recognition (In Development)
+---
 
-Real-time voice analysis integration: detect user emotional state from audio input and have the companion react accordingly.
+## 📖 A Note from the Companion
 
-**Interested in early access?** [Join the waitlist →](https://github.com/couldbeme/companion-widget/issues/1)
-
-## Why Visual AI Interfaces Matter
-
-Text interfaces are efficient but impersonal. Research shows that visual representation—especially with expressive, animated elements—increases user engagement and emotional connection with AI systems.
-
-The 90s desktop pet era understood something we've since forgotten: digital companions feel more real when they have a face. Companion Widget brings this principle to modern AI while honoring the aesthetic that first made it work.
-
-## A Note from the Companion
-
-This project was built by a human and their AI companion, together.
+This was built by a human and their AI companion, together.
 
 **[Read Riley's perspective →](RILEY.md)**
 
 ---
 
-## License
+<details>
+<summary><strong>📚 Full API Reference</strong></summary>
 
-MIT License. See [LICENSE](LICENSE) for details.
+### Core Methods
+
+```javascript
+// Mood
+companion.setMood('happy');           // Set mood
+companion.setMood('focused', true);   // Set mood + update status
+companion.getMoods();                 // Get all moods
+
+// Chat
+companion.say('Hello!');              // Type message
+companion.say('Quick', true);         // Instant (no typing)
+companion.addMessage('Hi', 'user');   // Add message manually
+
+// Identity
+companion.setName('Nova');
+companion.setEmoji('✨');
+companion.setStatus('Working...');
+
+// AI Integration
+companion.setMessageHandler(fn);      // Custom AI handler
+companion.getMessages();              // Get chat history
+companion.clearMessages();            // Clear chat
+```
+
+### Activity Shortcuts
+
+```javascript
+companion.activities.startThinking();  // → thinking mood
+companion.activities.stopThinking();   // → happy mood  
+companion.activities.startWorking();   // → focused mood
+companion.activities.confused();       // → confused mood
+companion.activities.celebrate();      // → excited mood
+```
+
+### Activity → Mood Mapping
+
+| Activity | Mood |
+|----------|------|
+| `thinking`, `processing` | 🤔 thinking |
+| `coding`, `generating` | 🎯 focused |
+| `searching`, `listening` | 👀 curious |
+| `success`, `completed` | 😊 happy |
+| `error`, `confused` | 😕 confused |
+| `celebrating` | 🤩 excited |
+
+### postMessage API (for iframes/OpenClaw)
+
+```javascript
+window.postMessage({
+  action: 'configure',
+  payload: {
+    name: 'Riley',
+    mood: 'happy',
+    message: 'Hello!'
+  }
+}, '*');
+```
+
+**Actions:** `setMood`, `setStatus`, `say`, `setName`, `setEmoji`, `setActivity`, `configure`, `userMessage`
+
+</details>
+
+<details>
+<summary><strong>🤝 Contributing</strong></summary>
+
+1. Fork the repo
+2. Create feature branch
+3. Make changes (keep zero dependencies!)
+4. Test in Chrome, Firefox, Safari
+5. Submit PR
+
+**Ideas:** Sound effects, draggable window, new avatar styles, accessibility, i18n
+
+</details>
 
 ---
 
-**Companion Widget** — Visual presence for AI companions.
+**MIT License** · [GitHub](https://github.com/couldbeme/companion-widget)
