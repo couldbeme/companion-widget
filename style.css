@@ -1,0 +1,565 @@
+/* ═══════════════════════════════════════════════════════════════
+   COMPANION WIDGET - Retro 90s Aesthetic
+   Inspired by Win98, PS1 memory cards, Tamagotchi, desktop pets
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
+:root {
+  /* Classic Win98 palette */
+  --win-bg: #008080;
+  --win-face: #c0c0c0;
+  --win-light: #ffffff;
+  --win-shadow: #808080;
+  --win-dark: #000000;
+  --win-title: #000080;
+  --win-title-text: #ffffff;
+  
+  /* Accent colors */
+  --accent-glow: #00ffff;
+  --accent-warm: #ff6b00;
+  --led-on: #00ff00;
+  --led-off: #003300;
+  
+  /* Sizing */
+  --window-width: 280px;
+  --avatar-size: 100px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--win-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'VT323', monospace;
+  padding: 20px;
+  
+  /* Retro CRT scanline effect */
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1) 0px,
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WINDOW CHROME - Classic Win98 Style
+   ═══════════════════════════════════════════════════════════════ */
+
+.window {
+  width: var(--window-width);
+  background: var(--win-face);
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  box-shadow: 
+    inset 1px 1px 0 var(--win-light),
+    inset -1px -1px 0 var(--win-shadow),
+    4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.title-bar {
+  background: linear-gradient(90deg, var(--win-title), #1084d0);
+  padding: 3px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.title-bar-text {
+  color: var(--win-title-text);
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.title-bar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.title-bar-controls button {
+  width: 16px;
+  height: 14px;
+  border: 1px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.title-bar-controls button:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WINDOW BODY
+   ═══════════════════════════════════════════════════════════════ */
+
+.window-body {
+  padding: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AVATAR - The Companion's Face
+   ═══════════════════════════════════════════════════════════════ */
+
+.avatar-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 50%;
+  position: relative;
+  border: 3px solid;
+  border-color: var(--win-shadow) var(--win-light) var(--win-light) var(--win-shadow);
+  overflow: hidden;
+}
+
+.avatar-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 8px;
+  padding: 20px;
+}
+
+.eye {
+  width: 12px;
+  height: 16px;
+  background: var(--accent-glow);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 10px var(--accent-glow),
+    0 0 20px var(--accent-glow);
+  animation: blink 4s infinite;
+}
+
+.eye.left { margin-right: 20px; }
+.eye.right { margin-left: 20px; }
+
+@keyframes blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+.mouth {
+  width: 30px;
+  height: 8px;
+  background: var(--accent-glow);
+  border-radius: 0 0 15px 15px;
+  margin-top: 5px;
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: speak 0.5s infinite alternate paused;
+}
+
+.avatar.speaking .mouth {
+  animation-play-state: running;
+}
+
+@keyframes speak {
+  0% { height: 8px; }
+  100% { height: 14px; }
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 50%, var(--accent-glow) 100%);
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+/* Status LED */
+.status-led {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 60px);
+  width: 10px;
+  height: 10px;
+  background: var(--led-on);
+  border-radius: 50%;
+  border: 1px solid var(--win-shadow);
+  box-shadow: 
+    0 0 5px var(--led-on),
+    inset 0 1px 2px rgba(255,255,255,0.5);
+  animation: led-blink 2s infinite;
+}
+
+.status-led.offline {
+  background: var(--led-off);
+  box-shadow: none;
+  animation: none;
+}
+
+.status-led.thinking {
+  background: #ffff00;
+  box-shadow: 0 0 5px #ffff00;
+  animation: led-fast 0.3s infinite;
+}
+
+@keyframes led-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes led-fast {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS PANEL - PS1 Memory Card Vibes
+   ═══════════════════════════════════════════════════════════════ */
+
+.stats-panel {
+  background: #000;
+  border: 2px solid;
+  border-color: var(--win-shadow) var(--win-light) var(--win-light) var(--win-shadow);
+  padding: 6px 8px;
+  margin-bottom: 8px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.stat-row:last-child {
+  margin-bottom: 0;
+}
+
+.stat-label {
+  color: #808080;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  color: var(--accent-glow);
+  text-shadow: 0 0 5px var(--accent-glow);
+}
+
+.stat-value.mono {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+}
+
+/* Mood Bar */
+.mood-bar {
+  width: 80px;
+  height: 10px;
+  background: #001a1a;
+  border: 1px solid #004040;
+  position: relative;
+}
+
+.mood-fill {
+  height: 100%;
+  width: 75%;
+  background: linear-gradient(90deg, #00ff00, #00ffaa);
+  box-shadow: 0 0 5px #00ff88;
+  transition: width 0.5s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MESSAGE PANEL - Chat Bubble
+   ═══════════════════════════════════════════════════════════════ */
+
+.message-panel {
+  background: #ffffcc;
+  border: 2px solid;
+  border-color: var(--win-shadow) var(--win-light) var(--win-light) var(--win-shadow);
+  padding: 8px;
+  min-height: 40px;
+  position: relative;
+}
+
+.message-panel::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-bottom-color: var(--win-shadow);
+  border-top: none;
+}
+
+.message-panel::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: #ffffcc;
+  border-top: none;
+}
+
+.message-text {
+  color: #000;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Typing animation */
+.message-text.typing::after {
+  content: '▌';
+  animation: cursor 0.5s infinite;
+}
+
+@keyframes cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS BAR - Bottom Info
+   ═══════════════════════════════════════════════════════════════ */
+
+.status-bar {
+  background: var(--win-face);
+  border-top: 1px solid var(--win-shadow);
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #000;
+}
+
+.status-bar-field {
+  border: 1px solid;
+  border-color: var(--win-shadow) var(--win-light) var(--win-light) var(--win-shadow);
+  padding: 1px 4px;
+  background: var(--win-face);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOOD STATES - Different Expressions
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Happy */
+.avatar.happy .mouth {
+  border-radius: 0 0 20px 20px;
+  height: 12px;
+}
+
+.avatar.happy .eye {
+  animation: happy-eyes 0.5s infinite alternate;
+}
+
+@keyframes happy-eyes {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0.7) scaleX(1.2); }
+}
+
+/* Thinking */
+.avatar.thinking .eye.right {
+  animation: thinking-eye 1s infinite;
+}
+
+.avatar.thinking .mouth {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+@keyframes thinking-eye {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Sleepy */
+.avatar.sleepy .eye {
+  height: 4px;
+  animation: none;
+}
+
+.avatar.sleepy .mouth {
+  height: 4px;
+  width: 20px;
+}
+
+/* Excited */
+.avatar.excited .eye {
+  animation: excited-pulse 0.2s infinite alternate;
+}
+
+.avatar.excited .avatar-glow {
+  animation: excited-glow 0.3s infinite alternate;
+}
+
+@keyframes excited-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+@keyframes excited-glow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+/* Curious - Eyes looking to the side */
+.avatar.curious .eye {
+  animation: curious-look 2s infinite;
+}
+
+.avatar.curious .mouth {
+  width: 20px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+@keyframes curious-look {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+}
+
+/* Love - Hearts in eyes vibe */
+.avatar.love .eye {
+  background: #ff6b9d;
+  box-shadow: 
+    0 0 10px #ff6b9d,
+    0 0 20px #ff6b9d;
+  animation: love-pulse 0.8s infinite alternate;
+}
+
+.avatar.love .mouth {
+  border-radius: 0 0 20px 20px;
+  height: 12px;
+  background: #ff6b9d;
+  box-shadow: 0 0 8px #ff6b9d;
+}
+
+.avatar.love .avatar-glow {
+  background: radial-gradient(circle, transparent 50%, #ff6b9d 100%);
+}
+
+@keyframes love-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* Mischievous - One eye squinting */
+.avatar.mischievous .eye.left {
+  transform: scaleY(0.5) scaleX(1.2);
+}
+
+.avatar.mischievous .eye.right {
+  animation: none;
+}
+
+.avatar.mischievous .mouth {
+  width: 25px;
+  height: 6px;
+  border-radius: 0 15px 15px 0;
+  transform: rotate(-5deg);
+  margin-left: 5px;
+}
+
+/* Focused - Intense stare */
+.avatar.focused .eye {
+  height: 20px;
+  width: 14px;
+  animation: focused-stare 0.5s infinite alternate;
+  box-shadow: 
+    0 0 15px var(--accent-glow),
+    0 0 30px var(--accent-glow);
+}
+
+.avatar.focused .mouth {
+  height: 4px;
+  width: 25px;
+}
+
+.avatar.focused .avatar-glow {
+  opacity: 0.5;
+  animation: none;
+}
+
+@keyframes focused-stare {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Confused - Eyebrows furrowed, wobbly */
+.avatar.confused .eye {
+  animation: confused-wobble 0.5s infinite;
+}
+
+.avatar.confused .eye.left {
+  transform: rotate(-10deg);
+}
+
+.avatar.confused .eye.right {
+  transform: rotate(10deg);
+}
+
+.avatar.confused .mouth {
+  width: 20px;
+  height: 6px;
+  border-radius: 0;
+  animation: confused-mouth 1s infinite;
+}
+
+.avatar.confused .avatar-glow {
+  background: radial-gradient(circle, transparent 50%, #ffaa00 100%);
+  opacity: 0.3;
+}
+
+@keyframes confused-wobble {
+  0%, 100% { transform: translateX(0) rotate(var(--eye-rotate, 0deg)); }
+  25% { transform: translateX(-2px) rotate(var(--eye-rotate, 0deg)); }
+  75% { transform: translateX(2px) rotate(var(--eye-rotate, 0deg)); }
+}
+
+@keyframes confused-mouth {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-5deg) translateX(2px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 320px) {
+  :root {
+    --window-width: 260px;
+    --avatar-size: 80px;
+  }
+}
