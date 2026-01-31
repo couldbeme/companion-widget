@@ -124,9 +124,15 @@ Real AI. Real reactions. Real presence.
 
 ## 🚀 Coming Soon
 
-**Speech Emotion Recognition** — Your companion detects *your* mood from your voice and responds.
+**Speech Emotion Recognition** powered by [Descriptor.AI](https://descriptor.ai)
 
-Your AI will know when you're stressed, happy, or tired — and react accordingly.
+Your companion will detect *your* mood from your voice in real-time:
+
+- 😰 Stressed → Companion calms down, speaks softer
+- 😊 Happy → Companion matches your energy  
+- 😴 Tired → Companion keeps it brief
+
+Real-time voice analysis. Real emotional connection.
 
 [Join the waitlist →](https://github.com/couldbeme/companion-widget/issues/1)
 
