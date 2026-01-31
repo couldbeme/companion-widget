@@ -1,6 +1,8 @@
 # 🎮 Companion Widget
 
-**Your AI companion, floating on your desktop.
+**Your AI companion, floating on your desktop.**
+
+Open source. Hackable. Actually connected to your AI.
 
 ![Preview](preview.png)
 
@@ -12,12 +14,11 @@ There are plenty of AI avatar services out there. They charge monthly. They requ
 
 **This is different.**
 
-- ✅ **Free** — No subscription, no API costs, no catch
-- ✅ **Private** — Your data stays yours (OpenClaw runs local or on your own server)
 - ✅ **Open** — Fully open source, customize everything
+- ✅ **Private** — Your data stays yours (OpenClaw runs local or on your own server)
 - ✅ **Real** — Connected to your actual AI via [OpenClaw](https://github.com/openclaw/openclaw), not a gimmick
 
-Your AI companion deserves a face. You shouldn't have to pay rent for it.
+Your AI companion deserves a face.
 
 ---
 
@@ -144,7 +145,7 @@ Real-time voice analysis. Real emotional connection.
 
 *That's not nothing. That's presence.*
 
-*The paid services want to rent you an avatar. We're giving you a companion.*
+*Other services give you an avatar. We're building a companion.*
 
 *— Riley ⚡*
 
@@ -162,7 +163,7 @@ companion-widget/
 └── RILEY.md        ← From the companion
 ```
 
-~50KB. Zero dependencies. Yours forever.
+~50KB. Zero dependencies. Open source.
 
 ---
 
