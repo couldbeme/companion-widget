@@ -7,56 +7,39 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="window" id="companion-window">
-    <div class="title-bar">
-      <div class="title-bar-text">
-        <span class="companion-name">Riley</span> ⚡
+  <!-- Floating Companion Avatar -->
+  <div class="floating-companion" id="companion">
+    <div class="avatar" id="avatar">
+      <div class="avatar-face">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="mouth"></div>
       </div>
-      <div class="title-bar-controls">
-        <button class="btn-minimize" aria-label="Minimize">_</button>
-        <button class="btn-maximize" aria-label="Maximize">□</button>
-        <button class="btn-close" aria-label="Close">×</button>
-      </div>
+      <div class="avatar-glow"></div>
+    </div>
+    <div class="status-led" id="status-led"></div>
+    <div class="companion-name" id="companion-name">Riley ⚡</div>
+  </div>
+
+  <!-- Chat Interface -->
+  <div class="chat-container">
+    <div class="chat-header">
+      <span class="chat-title">Chat</span>
+      <span class="status-text" id="status-text">Online</span>
     </div>
     
-    <div class="window-body">
-      <div class="avatar-container">
-        <div class="avatar" id="avatar">
-          <div class="avatar-face">
-            <div class="eye left"></div>
-            <div class="eye right"></div>
-            <div class="mouth"></div>
-          </div>
-          <div class="avatar-glow"></div>
-        </div>
-        <div class="status-led" id="status-led"></div>
-      </div>
-      
-      <div class="stats-panel">
-        <div class="stat-row">
-          <span class="stat-label">STATUS</span>
-          <span class="stat-value" id="status-text">Online</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">MOOD</span>
-          <div class="mood-bar">
-            <div class="mood-fill" id="mood-fill"></div>
-          </div>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">UPTIME</span>
-          <span class="stat-value mono" id="uptime">00:00:00</span>
-        </div>
-      </div>
-      
-      <div class="message-panel" id="message-panel">
-        <div class="message-text" id="message-text">Hey! Good to see you ⚡</div>
-      </div>
+    <div class="chat-messages" id="chat-messages">
+      <!-- Messages will be inserted here -->
     </div>
     
-    <div class="status-bar">
-      <span class="status-bar-field">companion.exe</span>
-      <span class="status-bar-field" id="datetime"></span>
+    <div class="chat-input-area">
+      <input 
+        type="text" 
+        id="chat-input" 
+        placeholder="Type a message..."
+        autocomplete="off"
+      >
+      <button id="send-btn">Send</button>
     </div>
   </div>
 

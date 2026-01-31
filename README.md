@@ -1,6 +1,6 @@
 # 🎮 Companion Widget
 
-**Give your AI a face.**
+**Give your AI a face. And a chat.**
 
 Your AI assistant is smart. It can think, create, remember. But it's invisible — just text in a box.
 
@@ -8,22 +8,23 @@ That changes now.
 
 ![Preview](preview.png)
 
-Companion Widget gives AI companions a visual presence: an animated avatar that shows what it's feeling. Happy when it helps. Focused when it's working. Confused when it's stuck. Just like the Tamagotchis and desktop pets of the 90s — but for the AI age.
+Companion Widget is a **complete standalone chat app** with a floating animated avatar. Your companion shows what it's feeling — happy when it helps, focused when working, confused when stuck. Just like the Tamagotchis and desktop pets of the 90s — but for the AI age.
 
 ---
 
 ## ✨ What You Get
 
-- **A face for your AI** — Expressive avatar with 10+ mood states
-- **Real emotional feedback** — See when it's thinking, excited, or confused
+- **Floating avatar** — Animated face that reacts to the conversation
+- **Built-in chat** — Full chat interface, ready to use
+- **10+ mood states** — Happy, thinking, confused, excited, love, and more
 - **90s nostalgia** — Windows 98 aesthetic, pixel vibes, CRT scanlines
-- **Works anywhere** — Just open the HTML file. No install. No setup. No cloud.
+- **Works anywhere** — Just open the HTML file. No install. No cloud.
 
 ---
 
 ## 🚀 It's Standalone
 
-**This is a complete app.** Download it, open it, done.
+**This is a complete app.** Download it, open it, chat.
 
 No npm. No build tools. No frameworks. No accounts. No internet required.
 
@@ -32,19 +33,38 @@ Just 3 files (~50KB total):
 - `style.css`  
 - `companion.js`
 
-Double-click `index.html` → your companion appears.
-
-Want to integrate it with your AI system? Great — there's a full API. But you don't *have* to. It works out of the box.
+Double-click `index.html` → your companion appears, ready to talk.
 
 ---
 
-## 🔌 Integrates with AI Systems
+## 💬 How It Works
 
-While Companion Widget works standalone, it's designed to connect with AI backends:
+1. **Open the app** — Double-click `index.html`
+2. **Start chatting** — Type a message, hit enter
+3. **Watch it react** — Avatar shows mood while "thinking" and "typing"
+4. **Click the avatar** — Random reactions!
 
-- **OpenClaw** — First-class canvas integration (see below)
-- **Any AI** — Simple JavaScript API and postMessage interface
-- **Custom systems** — Just call `companion.setMood('thinking')` when your AI is thinking
+Out of the box, it has simple fallback responses. Connect it to a real AI backend (OpenAI, Claude, local LLM, OpenClaw) for actual conversations.
+
+---
+
+## 🔌 Connect Your AI
+
+Want real AI responses? Set a message handler:
+
+```javascript
+companion.setMessageHandler(async (userMessage, history) => {
+  // Call your AI backend here
+  const response = await fetch('/your-ai-endpoint', {
+    method: 'POST',
+    body: JSON.stringify({ message: userMessage })
+  });
+  const data = await response.json();
+  return data.reply;
+});
+```
+
+Works with any backend — OpenAI, Anthropic, local LLMs, or your own API.
 
 ---
 
@@ -56,15 +76,14 @@ Everything below is for technical integration. If you just want to use the widge
 
 ## Overview
 
-Companion Widget provides a visual interface layer for AI systems. It renders an animated avatar with mood states, status indicators, and real-time messaging in a retro 90s aesthetic.
+Companion Widget provides a standalone chat interface with an animated avatar. It includes:
 
-**Technical capabilities:**
-- Expressive avatar with 10+ mood states and CSS-only animations
-- Real-time status display with uptime, energy levels, and custom messages
-- Message bubbles with typing animations
-- Full JavaScript API for programmatic control
-- Zero external dependencies (pure HTML/CSS/JS)
-- First-class OpenClaw canvas integration
+- **Floating avatar** with 10+ mood states and CSS-only animations
+- **Chat interface** with message history, typing indicators, and smooth animations
+- **Full JavaScript API** for programmatic control and AI integration
+- **postMessage interface** for iframe embedding and external control
+- **Zero external dependencies** (pure HTML/CSS/JS)
+- **First-class OpenClaw canvas integration**
 
 ## Installation
 
