@@ -168,8 +168,8 @@
   </div>
 
   <script>
-    const API = 'http://localhost:8080';
-    const API_KEY = 'test-key-dev-only';
+    const API = 'https://kfkgvrqbfwbpbbptmmgv.supabase.co/functions/v1';
+    const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtma2d2cnFiZndicGJicHRtbWd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3NzEzNTIsImV4cCI6MjA3NjM0NzM1Mn0.LFZFX-oF7p3P1KRuws5orqoaROY8ZZ3j74MZdYwGT-E';
     const DEMO_LIMIT_MS = 3 * 60 * 1000; // 3 minutes
     
     const avatar = document.getElementById('avatar');
@@ -283,20 +283,23 @@
           const pcmData = audioBuffer.getChannelData(0);
           const wavBlob = encodeWAV(pcmData, 16000);
           
-          const formData = new FormData();
-          formData.append('file', wavBlob, 'audio.wav');
+          // Convert to base64
+          const base64 = await blobToBase64(wavBlob);
           
           try {
-            const res = await fetch(`${API}/v1/transcribe`, {
+            const res = await fetch(`${API}/analyze-speech`, {
               method: 'POST',
-              headers: { 'X-API-Key': API_KEY },
-              body: formData
+              headers: { 
+                'Authorization': `Bearer ${API_KEY}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ audio_base64: base64 })
             });
             const data = await res.json();
             
             // Update UI
-            transcript.innerHTML = `"${data.text || '...'}"`;
-            setEmotion(data.emotion || 'neutral');
+            transcript.innerHTML = `"${data.transcript || '...'}"`;
+            setEmotion(mapEmotion(data.emotions?.dominant) || 'neutral');
             status.textContent = 'Hold to speak';
             
           } catch (e) {
@@ -306,6 +309,23 @@
           
           stream.getTracks().forEach(t => t.stop());
         };
+        
+        function blobToBase64(blob) {
+          return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result.split(',')[1]);
+            reader.readAsDataURL(blob);
+          });
+        }
+        
+        function mapEmotion(emotion) {
+          const map = {
+            'positive': 'happy', 'negative': 'sad', 'neutral': 'neutral',
+            'angry': 'angry', 'happy': 'happy', 'sad': 'sad',
+            'frustrated': 'confused', 'satisfied': 'happy'
+          };
+          return map[emotion?.toLowerCase()] || 'neutral';
+        }
         
         mediaRecorder.start();
       } catch (e) {
