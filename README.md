@@ -23,33 +23,22 @@ Your AI companion deserves a face. You shouldn't have to pay rent for it.
 
 ---
 
-## ⚡ Setup (2 minutes)
+## ⚡ Install (30 seconds)
 
-### 1. Have OpenClaw running
-
-```bash
-# If you don't have it yet:
-npm install -g openclaw
-openclaw onboard
-```
-
-### 2. Add the companion
+**One command:**
 
 ```bash
 git clone https://github.com/couldbeme/companion-widget.git \
-  ~/Library/Application\ Support/OpenClaw/canvas/main/companion
-```
-
-### 3. Launch
-
-```bash
-openclaw nodes canvas present
-openclaw nodes canvas navigate --url "/companion/"
+  ~/Library/Application\ Support/OpenClaw/canvas/main/companion && \
+  openclaw nodes canvas present && \
+  openclaw nodes canvas navigate --url "/companion/"
 ```
 
 **Done.** Your companion floats on your desktop.
 
 Talk to your AI via Telegram, Discord, terminal — watch it react in real-time.
+
+📖 [Detailed install guide](INSTALL.md) | 🔧 [Troubleshooting](INSTALL.md#troubleshooting)
 
 ---
 
