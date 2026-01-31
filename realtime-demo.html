@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riley — Real-Time Emotional AI</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .demo-container {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .tagline {
+      font-family: 'VT323', monospace;
+      font-size: 28px;
+      color: #00ffff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    
+    .start-button {
+      padding: 20px 50px;
+      font-family: 'VT323', monospace;
+      font-size: 24px;
+      border-radius: 50px;
+      border: 3px solid #00ffff;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #00ffff;
+      cursor: pointer;
+      margin: 20px auto;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+    
+    .start-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    }
+    
+    .start-button.listening {
+      border-color: #00ff88;
+      color: #00ff88;
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+      animation: glow-green 2s infinite;
+    }
+    
+    @keyframes glow-green {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.8); }
+    }
+    
+    .waveform {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin: 20px 0;
+    }
+    
+    .wave-bar {
+      width: 6px;
+      height: 10px;
+      background: #00ffff;
+      border-radius: 3px;
+      transition: height 0.1s;
+    }
+    
+    .listening .wave-bar {
+      animation: wave 0.5s ease-in-out infinite;
+    }
+    
+    .wave-bar:nth-child(1) { animation-delay: 0s; }
+    .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+    .wave-bar:nth-child(6) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(7) { animation-delay: 0.2s; }
+    .wave-bar:nth-child(8) { animation-delay: 0.1s; }
+    
+    @keyframes wave {
+      0%, 100% { height: 10px; opacity: 0.5; }
+      50% { height: 40px; opacity: 1; }
+    }
+    
+    .transcript-live {
+      font-family: 'VT323', monospace;
+      font-size: 24px;
+      color: #e0e0e0;
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 20px 0;
+      min-height: 80px;
+      text-align: center;
+    }
+    
+    .transcript-live .current {
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+    
+    .emotion-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin: 25px 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .emotion-display.visible {
+      opacity: 1;
+    }
+    
+    .emotion-emoji {
+      font-size: 64px;
+      transition: all 0.3s;
+    }
+    
+    .emotion-info {
+      text-align: left;
+    }
+    
+    .emotion-label {
+      font-family: 'VT323', monospace;
+      font-size: 32px;
+      text-transform: uppercase;
+    }
+    
+    .emotion-confidence {
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      color: #808080;
+    }
+    
+    .emotion-label.happy { color: #FFD700; }
+    .emotion-label.sad { color: #6495ED; }
+    .emotion-label.angry { color: #FF4444; }
+    .emotion-label.surprised { color: #FF69B4; }
+    .emotion-label.fearful { color: #9370DB; }
+    .emotion-label.disgusted { color: #32CD32; }
+    .emotion-label.neutral { color: #00FFFF; }
+
+    .credit {
+      font-family: 'VT323', monospace;
+      font-size: 16px;
+      color: #404040;
+      margin-top: 40px;
+    }
+    
+    .credit a { color: #00ffff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="tagline">✨ Real-Time Emotion Detection ✨</div>
+    
+    <!-- Floating Companion Avatar -->
+    <div class="floating-companion" id="companion">
+      <div class="avatar emotion-neutral" id="avatar">
+        <div class="avatar-face">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="mouth"></div>
+        </div>
+        <div class="avatar-glow"></div>
+      </div>
+    </div>
+    
+    <!-- Emotion Display -->
+    <div class="emotion-display" id="emotion-display">
+      <span class="emotion-emoji" id="emotion-emoji">😐</span>
+      <div class="emotion-info">
+        <div class="emotion-label neutral" id="emotion-label">neutral</div>
+        <div class="emotion-confidence" id="emotion-confidence">confidence: --</div>
+      </div>
+    </div>
+    
+    <!-- Waveform -->
+    <div class="waveform" id="waveform">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+    
+    <!-- Start Button -->
+    <button class="start-button" id="start-btn">🎤 Start Listening</button>
+    
+    <!-- Live Transcript -->
+    <div class="transcript-live" id="transcript">
+      <em style="color: #606060;">Click to start — speak naturally</em>
+    </div>
+    
+    <div class="credit">
+      Real-time ASR + Emotion Detection — <a href="https://github.com/couldbeme/companion-widget">Open Source</a>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:8080';
+    const API_KEY = 'test-key-dev-only';
+    
+    const avatar = document.getElementById('avatar');
+    const startBtn = document.getElementById('start-btn');
+    const waveform = document.getElementById('waveform');
+    const transcript = document.getElementById('transcript');
+    const emotionDisplay = document.getElementById('emotion-display');
+    const emotionEmoji = document.getElementById('emotion-emoji');
+    const emotionLabel = document.getElementById('emotion-label');
+    const emotionConfidence = document.getElementById('emotion-confidence');
+    
+    const emotionEmojis = {
+      happy: '😊', sad: '😢', angry: '😠', surprised: '😲',
+      fearful: '😨', disgusted: '🤢', neutral: '😐'
+    };
+    
+    let isListening = false;
+    let audioContext, analyser, microphone, processor;
+    let fullTranscript = '';
+    
+    function setEmotion(emotion, confidence) {
+      avatar.className = 'avatar';
+      avatar.classList.add(`emotion-${emotion}`);
+      
+      emotionLabel.className = 'emotion-label ' + emotion;
+      emotionLabel.textContent = emotion;
+      emotionEmoji.textContent = emotionEmojis[emotion] || '🎭';
+      emotionConfidence.textContent = `confidence: ${Math.round(confidence * 100)}%`;
+      emotionDisplay.classList.add('visible');
+    }
+    
+    async function startListening() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          audio: { sampleRate: 16000, channelCount: 1 } 
+        });
+        
+        audioContext = new AudioContext({ sampleRate: 16000 });
+        analyser = audioContext.createAnalyser();
+        microphone = audioContext.createMediaStreamSource(stream);
+        processor = audioContext.createScriptProcessor(4096, 1, 1);
+        
+        microphone.connect(analyser);
+        microphone.connect(processor);
+        processor.connect(audioContext.destination);
+        
+        let audioBuffer = [];
+        const CHUNK_DURATION = 2; // seconds
+        const SAMPLES_PER_CHUNK = 16000 * CHUNK_DURATION;
+        
+        processor.onaudioprocess = (e) => {
+          if (!isListening) return;
+          
+          const inputData = e.inputBuffer.getChannelData(0);
+          audioBuffer.push(...inputData);
+          
+          // Process every CHUNK_DURATION seconds
+          if (audioBuffer.length >= SAMPLES_PER_CHUNK) {
+            const chunk = new Float32Array(audioBuffer.splice(0, SAMPLES_PER_CHUNK));
+            processAudioChunk(chunk);
+          }
+        };
+        
+        isListening = true;
+        startBtn.textContent = '⏹️ Stop Listening';
+        startBtn.classList.add('listening');
+        waveform.classList.add('listening');
+        transcript.innerHTML = '<span class="current">Listening...</span>';
+        fullTranscript = '';
+        
+      } catch (e) {
+        console.error('Mic error:', e);
+        transcript.innerHTML = `<em style="color: #ff4444;">Microphone access denied</em>`;
+      }
+    }
+    
+    function stopListening() {
+      isListening = false;
+      startBtn.textContent = '🎤 Start Listening';
+      startBtn.classList.remove('listening');
+      waveform.classList.remove('listening');
+      
+      if (processor) processor.disconnect();
+      if (microphone) microphone.disconnect();
+      if (audioContext) audioContext.close();
+    }
+    
+    async function processAudioChunk(samples) {
+      // Convert to WAV
+      const wavBlob = encodeWAV(samples, 16000);
+      const formData = new FormData();
+      formData.append('file', wavBlob, 'chunk.wav');
+      
+      try {
+        const res = await fetch(`${API}/v1/transcribe`, {
+          method: 'POST',
+          headers: { 'X-API-Key': API_KEY },
+          body: formData
+        });
+        const data = await res.json();
+        
+        if (data.text && data.text.trim()) {
+          fullTranscript += ' ' + data.text.trim();
+          transcript.innerHTML = fullTranscript.trim() + 
+            '<span class="current"> ▊</span>';
+        }
+        
+        if (data.emotion) {
+          setEmotion(data.emotion, data.emotion_confidence || 0.6);
+        }
+      } catch (e) {
+        console.error('API error:', e);
+      }
+    }
+    
+    startBtn.onclick = () => {
+      if (isListening) {
+        stopListening();
+      } else {
+        startListening();
+      }
+    };
+    
+    // WAV encoder
+    function encodeWAV(samples, sampleRate) {
+      const buffer = new ArrayBuffer(44 + samples.length * 2);
+      const view = new DataView(buffer);
+      writeString(view, 0, 'RIFF');
+      view.setUint32(4, 36 + samples.length * 2, true);
+      writeString(view, 8, 'WAVE');
+      writeString(view, 12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(view, 36, 'data');
+      view.setUint32(40, samples.length * 2, true);
+      let offset = 44;
+      for (let i = 0; i < samples.length; i++) {
+        const s = Math.max(-1, Math.min(1, samples[i]));
+        view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        offset += 2;
+      }
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+    
+    function writeString(view, offset, string) {
+      for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+      }
+    }
+  </script>
+</body>
+</html>
